@@ -27,3 +27,10 @@ for (menu of menuLinks) {
 
 
 /*New part 2 code*/
+//Part 3 
+//TODO: Make this actually appear (it doesn't)
+let subMenuEl = document.getElementById("sub-menu")
+subMenuEl.setAttribute("height", "100%") 
+subMenuEl.setAttribute("style", "background-color:var(--sub-menu-bg)")
+subMenuEl.setAttribute("position", "absolute")
+subMenuEl.setAttribute("top", "0") //TEMP
