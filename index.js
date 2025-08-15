@@ -71,7 +71,7 @@ topMenuEl.addEventListener("click", function(event) {
     if (event.target.tagName == "NAV") {
         return
     }
-    window.alert(event.target.innerHTML) //TODO: figure out if correct
+    //window.alert(event.target.innerHTML) //TODO: figure out if correct
     
     //TODO: figure more elegant solution
     //TODO: (PERSONAL) highlight bug using in instead
@@ -87,15 +87,43 @@ topMenuEl.addEventListener("click", function(event) {
                 })
                 if(ex[0].subLinks != undefined) {
                     subMenuEl.setAttribute("top", "100%")
-                } else {
-                    subMenuEl.setAttribute("top", "0")
+                    buildSubmenu(ex[0].subLinks)
                 }
-            } 
+            } else {
+                subMenuEl.setAttribute("top", "0")
+            }
         } else {
             //topMenuLink.classList.remove("active")
             topMenuLink.removeAttribute("class") //using "active" didn't work
+            //TODO: Fix error of this firing despite only being for about
+            mainEl.querySelector("h1").innerText = event.target.innerHTML
         }
     }
-
-
 })
+
+subMenuEl.addEventListener("click", function(event) {
+    event.preventDefault()
+    if (event.target.tagName == "NAV") {
+        return
+    }
+    //window.alert(event.target.innerHTML) //TODO: figure out if correct
+    subMenuEl.setAttribute("top", "0")
+
+    for (topMenuLink of topMenuLinks) {
+        topMenuLink.removeAttribute("class") //using "active" didn't work
+    }
+
+    mainEl.querySelector("h1").innerText = event.target.innerHTML
+})
+
+function buildSubmenu(subLinks) {
+    //TODO: Write function to empty subMenuEl contents
+    //      I don't really like this solution...
+    subMenuEl.innerHTML = ""
+    for (subLink of subLinks) {
+        let a = document.createElement("a");
+        a.setAttribute("href", subLink.href)
+        a.innerText = subLink.text.toUpperCase()
+        subMenuEl.appendChild(a)
+    }
+}
