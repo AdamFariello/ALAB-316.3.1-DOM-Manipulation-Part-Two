@@ -1,13 +1,4 @@
 /*Original part 1 code*/
-// Menu data structure
-/* //TODO: Remove when uneeded
-var menuLinks = [
-    { text: 'about', href: '/about' },
-    { text: 'catalog', href: '/catalog' },
-    { text: 'orders', href: '/orders' },
-    { text: 'account', href: '/account' },
-];
-*/
 var menuLinks = [
     {text: 'about', href: '/about'},
     {text: 'catalog', href: '#', subLinks: [
@@ -40,22 +31,19 @@ topMenuEl.setAttribute("style", "background-color:var(--top-menu-bg)")
 topMenuEl.setAttribute("class", "flex-around")
 
 //part 3
-let topMenuLinks = [] //TODO figre if include elements or just links
+let topMenuLinks = [] 
 for (menu of menuLinks) {
-    //let a = `<a href=${menu.href}>${menu.text.toUpperCase()}</a>`
     let a = document.createElement("a");
     a.setAttribute("href", menu.href)
     a.innerText = menu.text.toUpperCase()
     topMenuLinks.push(a)
-    //topMenuEl.innerHTML += a
     topMenuEl.appendChild(a)
 }
-//window.alert(topMenuLinks)
+
 
 
 /*New part 2 code*/
 //Part 3 
-//TODO: Make this actually appear (it doesn't)
 let subMenuEl = document.getElementById("sub-menu")
 subMenuEl.setAttribute("height", "100%") 
 subMenuEl.setAttribute("style", "background-color:var(--sub-menu-bg)")
@@ -64,26 +52,23 @@ subMenuEl.setAttribute("top", "0")
 
 
 //Part 4
-//e.target.classList.toggle("strikethrough");
 topMenuEl.addEventListener("click", function(event) {
-    //Prevent code from activating anything
     event.preventDefault()
-    if (event.target.tagName == "NAV") {
-        return
-    }
-    //window.alert(event.target.innerHTML) //TODO: figure out if correct
+    if (event.target.tagName == "NAV") return
     
-    //TODO: figure more elegant solution
-    //TODO: (PERSONAL) highlight bug using in instead
+    let navBtnLbl = event.target.innerHTML
+    if (navBtnLbl == "ABOUT") { 
+        subMenuEl.setAttribute("top", "0")
+        mainEl.querySelector("h1").innerText = navBtnLbl
+    }
     for (topMenuLink of topMenuLinks) {
-        if (topMenuLink.innerHTML == event.target.innerHTML) {
-            //TODO: switch out length solution to make code 
-            //      easier to work on in the future
-            if (topMenuLink.classList.length == 0) { 
+        if (navBtnLbl == topMenuLink.innerHTML) {
+            //if (topMenuLink.classList.length == 0) { 
+            if (!topMenuLink.classList.contains("active")) { 
                 topMenuLink.setAttribute("class", "active")
 
                 let ex = menuLinks.filter(e => {
-                    return e["text"].toUpperCase() == event.target.innerHTML
+                    return e["text"].toUpperCase() == navBtnLbl
                 })
                 if(ex[0].subLinks != undefined) {
                     subMenuEl.setAttribute("top", "100%")
@@ -94,21 +79,16 @@ topMenuEl.addEventListener("click", function(event) {
             }
         } else {
             //topMenuLink.classList.remove("active")
-            topMenuLink.removeAttribute("class") //using "active" didn't work
-            //TODO: Fix error of this firing despite only being for about
-            mainEl.querySelector("h1").innerText = event.target.innerHTML
+            topMenuLink.removeAttribute("class")
         }
     }
 })
 
 subMenuEl.addEventListener("click", function(event) {
     event.preventDefault()
-    if (event.target.tagName == "NAV") {
-        return
-    }
-    //window.alert(event.target.innerHTML) //TODO: figure out if correct
-    subMenuEl.setAttribute("top", "0")
+    if (event.target.tagName == "NAV") return
 
+    subMenuEl.setAttribute("top", "0")
     for (topMenuLink of topMenuLinks) {
         topMenuLink.removeAttribute("class") //using "active" didn't work
     }
