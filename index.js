@@ -65,23 +65,37 @@ subMenuEl.setAttribute("top", "0")
 
 //Part 4
 //e.target.classList.toggle("strikethrough");
-topMenuEl.addEventListener("click", function(e) {
+topMenuEl.addEventListener("click", function(event) {
     //Prevent code from activating anything
-    e.preventDefault()
-    if (e.target.tagName == "NAV") {
+    event.preventDefault()
+    if (event.target.tagName == "NAV") {
         return
     }
-    window.alert(e.target.innerHTML) //TODO: figure out if correct
+    window.alert(event.target.innerHTML) //TODO: figure out if correct
     
     //TODO: figure more elegant solution
     //TODO: (PERSONAL) highlight bug using in instead
     for (topMenuLink of topMenuLinks) {
-        console.log(topMenuLink.classList)
-        if (topMenuLink.innerHTML == e.target.innerHTML) {
-            topMenuLink.setAttribute("class", "active")
+        if (topMenuLink.innerHTML == event.target.innerHTML) {
+            //TODO: switch out length solution to make code 
+            //      easier to work on in the future
+            if (topMenuLink.classList.length == 0) { 
+                topMenuLink.setAttribute("class", "active")
+
+                let ex = menuLinks.filter(e => {
+                    return e["text"].toUpperCase() == event.target.innerHTML
+                })
+                if(ex[0].subLinks != undefined) {
+                    subMenuEl.setAttribute("top", "100%")
+                } else {
+                    subMenuEl.setAttribute("top", "0")
+                }
+            } 
         } else {
             //topMenuLink.classList.remove("active")
             topMenuLink.removeAttribute("class") //using "active" didn't work
         }
     }
+
+
 })
