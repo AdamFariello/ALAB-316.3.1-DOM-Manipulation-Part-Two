@@ -46,7 +46,6 @@ for (menu of menuLinks) {
     let a = document.createElement("a");
     a.setAttribute("href", menu.href)
     a.innerText = menu.text.toUpperCase()
-
     topMenuLinks.push(a)
     //topMenuEl.innerHTML += a
     topMenuEl.appendChild(a)
@@ -67,14 +66,22 @@ subMenuEl.setAttribute("top", "0")
 //Part 4
 //e.target.classList.toggle("strikethrough");
 topMenuEl.addEventListener("click", function(e) {
+    //Prevent code from activating anything
     e.preventDefault()
-    if (e.target.tagName == "NAV")
+    if (e.target.tagName == "NAV") {
         return
-
-    window.alert(e.target) //TODO: figure out if correct
-    //console.log(e.target) //Can't even see it...
-
-    //topMenuEl.setAttribute("class", "active")
+    }
+    window.alert(e.target.innerHTML) //TODO: figure out if correct
     
-    //e.setAttribute("class", "active")
+    //TODO: figure more elegant solution
+    //TODO: (PERSONAL) highlight bug using in instead
+    for (topMenuLink of topMenuLinks) {
+        console.log(topMenuLink.classList)
+        if (topMenuLink.innerHTML == e.target.innerHTML) {
+            topMenuLink.setAttribute("class", "active")
+        } else {
+            //topMenuLink.classList.remove("active")
+            topMenuLink.removeAttribute("class") //using "active" didn't work
+        }
+    }
 })
