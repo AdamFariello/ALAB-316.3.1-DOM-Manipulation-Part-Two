@@ -47,7 +47,8 @@ for (menu of menuLinks) {
 let subMenuEl = document.getElementById("sub-menu")
 subMenuEl.setAttribute("height", "100%") 
 subMenuEl.setAttribute("style", "background-color:var(--sub-menu-bg)")
-subMenuEl.setAttribute("position", "absolute") //TEMP
+subMenuEl.setAttribute("class", "flex-around")
+subMenuEl.setAttribute("position", "absolute") 
 subMenuEl.setAttribute("top", "0") 
 
 
