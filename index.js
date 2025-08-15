@@ -56,6 +56,7 @@ topMenuEl.addEventListener("click", function(event) {
     event.preventDefault()
     if (event.target.tagName == "NAV") return
     
+
     let navBtnLbl = event.target.innerHTML
     if (navBtnLbl == "ABOUT") { 
         subMenuEl.setAttribute("top", "0")
@@ -90,7 +91,8 @@ subMenuEl.addEventListener("click", function(event) {
 
     subMenuEl.setAttribute("top", "0")
     for (topMenuLink of topMenuLinks) {
-        topMenuLink.removeAttribute("class") //using "active" didn't work
+        //using "active" didn't work
+        topMenuLink.removeAttribute("class")
     }
 
     mainEl.querySelector("h1").innerText = event.target.innerHTML
